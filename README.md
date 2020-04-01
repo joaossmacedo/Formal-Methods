@@ -1,2 +1,2 @@
 # Formal-Methods
-Project made for the subject of "Métodos Formais"(Formal Methods).
+Project developed for the discipline of "Métodos Formais"(Formal Methods).
