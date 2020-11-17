@@ -11,7 +11,7 @@ sig Bug {}
 
 sig Report {
 	bug: Bug,
-	severity: Int ,
+	severity: Int,
 	corrected: Bool,
 	daysOld: Int,
 	daysSinceWorked: Int,
@@ -60,5 +60,18 @@ fact LimitDaysSinceWorked {
 		r.daysSinceWorked > 7 ||
 		r.daysOld < r.daysSinceWorked
 }
+
+//
+// Predicates:
+//
+
+//
+// Assertions:
+//
+assert NoRepeatedBug {
+	all r1, r2: Report |
+		r1.bug != r2.bug
+}
+
 
 run {} for 5
