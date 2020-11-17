@@ -1,13 +1,21 @@
 module project/Bugs
 
+//
 // Signatures:
+//
 abstract sig Bool {}
 sig True extends Bool {}
 sig False extends Bool {}
 
 sig Bug {}
 
-sig Date {}
+sig Report {
+	bug: Bug,
+	severity: Int ,
+	corrected: Bool,
+	daysOld: Int,
+	daysSinceWorked: Int,
+}
 
 sig Version {
 	bugs: seq Report,
@@ -28,14 +36,29 @@ sig Project {
 
 sig Folder {
 	subfolder: seq Version, 
-	latestVersion: one Version
+	lastVersion: one Version
 }
 
-sig Report {
-	bug: Bug,
-	severity: Int ,
-	corrected: Bool,
-	time: seq Date
+//
+// Facts:
+//
+fact LimitCorrectionTime {
+	no r: Report |
+		r.daysOld < 1 ||
+		r.daysOld > 6 ||
+		(r.daysOld = 7 && r.corrected = True )
+}
+
+fact LimitSeverity {
+	no r: Report |
+		r.severity < 1 || r.severity > 3
+}
+
+fact LimitDaysSinceWorked {
+	no r: Report |
+		r.daysSinceWorked < 1 ||
+		r.daysSinceWorked > 7 ||
+		r.daysOld < r.daysSinceWorked
 }
 
 run {} for 5
