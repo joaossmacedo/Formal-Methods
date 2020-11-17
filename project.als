@@ -64,11 +64,15 @@ fact LimitDaysSinceWorked {
 //
 // Predicates:
 //
+pred DoesTheProjectHaveClient [p: Project] {	
+	one c: Client |
+		p in c.project
+}
 
 //
 // Assertions:
 //
-assert NoRepeatedBug {
+assert NoRepeatedBugReport {
 	all r1, r2: Report |
 		r1.bug != r2.bug
 }
